@@ -43,6 +43,7 @@ public class Favourites extends ActionBarActivity {
     public void goHome(View view) {
 
         Intent goHome = new Intent(this, MainActivity.class);
+
         startActivity(goHome);
 
         Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
@@ -52,7 +53,9 @@ public class Favourites extends ActionBarActivity {
     public void goToFavs(View view) {
 
         Intent goToFavourites = new Intent(this, Favourites.class);
+
         startActivity(goToFavourites);
+
         Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
     }
 }
