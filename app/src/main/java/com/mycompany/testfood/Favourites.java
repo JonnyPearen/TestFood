@@ -1,9 +1,12 @@
 package com.mycompany.testfood;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 
 public class Favourites extends ActionBarActivity {
@@ -35,5 +38,21 @@ public class Favourites extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goHome(View view) {
+
+        Intent goHome = new Intent(this, MainActivity.class);
+        startActivity(goHome);
+
+        Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void goToFavs(View view) {
+
+        Intent goToFavourites = new Intent(this, Favourites.class);
+        startActivity(goToFavourites);
+        Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
     }
 }

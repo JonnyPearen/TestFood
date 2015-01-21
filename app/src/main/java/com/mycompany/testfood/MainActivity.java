@@ -1,9 +1,11 @@
 package com.mycompany.testfood;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,5 +37,31 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onGoodButtonClick(View view) {
+
+        Intent getSearchResultIntent = new Intent(this, RecipeDetails.class);
+
+        /* put data to be sent to recipe details
+        * callingActivity : key for the button that was pressed
+        * "something good" string to return as result on Details page.*/
+        getSearchResultIntent.putExtra("callingActivity", "Something Good");
+
+        startActivity(getSearchResultIntent);
+
+    }
+
+    public void onEasyButtonClick(View view) {
+
+        Intent getSearchResultIntent = new Intent(this, RecipeDetails.class);
+
+        /* put data to be sent to recipe details
+        * callingActivity : key for the button that was pressed
+        * "something good" string to return as result on Details page.*/
+        getSearchResultIntent.putExtra("callingActivity", "Something Easy");
+
+        startActivity(getSearchResultIntent);
+
     }
 }
