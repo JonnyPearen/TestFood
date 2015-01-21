@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RecipeDetails"
+            android:label="@string/title_activity_recipe_details" >
+        </activity>
+        <activity
+            android:name=".SearchResults"
+            android:label="@string/title_activity_search_results" >
+        </activity>
+        <activity
+            android:name=".Favourites"
+            android:label="@string/title_activity_favourites" >
+        </activity>
     </application>
 
 </manifest>
