@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -63,5 +64,14 @@ public class MainActivity extends ActionBarActivity {
 
         startActivity(getSearchResultIntent);
 
+    }
+
+    public void goToFavs(View view) {
+
+        Intent goToFavourites = new Intent(this, Favourites.class);
+
+        startActivity(goToFavourites);
+
+        Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
     }
 }

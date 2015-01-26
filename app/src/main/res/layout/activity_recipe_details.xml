@@ -19,7 +19,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:text="@string/homeButtonText"
             android:id="@+id/detailsHomeButton"
             android:onClick="goHome"/>
@@ -27,7 +26,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:text="@string/favouritesButtonText"
             android:id="@+id/detailsFavsButton"
             android:onClick="goToFavs"/>

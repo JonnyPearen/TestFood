@@ -10,37 +10,20 @@
     android:gravity="center|top"
     tools:context="com.mycompany.testfood.Favourites">
 
-    <LinearLayout
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:text="@string/title_activity_favourites"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:text="@string/homeButtonText"
         android:id="@+id/detailsHomeButton"
-        android:onClick="goHome"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/favouritesButtonText"
-        android:id="@+id/detailsFavsButton"
-        android:onClick="goToFavs"/>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/title_activity_favourites"
-            android:textSize="30sp"
-            android:textStyle="bold"/>
+        android:onClick="goHome"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

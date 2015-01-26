@@ -16,29 +16,39 @@
         android:text="@string/pickSearchButtonMessage"
         android:textSize="20sp"/>
 
-    <LinearLayout
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:id="@+id/goodButton"
+        android:text="@string/goodButtonMsg"
+        android:padding="20dp"
+        android:onClick="onGoodButtonClick"
+        android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/goodButton"
-            android:text="@string/goodButtonMsg"
-            android:padding="20dp"
-            android:onClick="onGoodButtonClick"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/easyButton"
+        android:text="@string/easyButtonMsg"
+        android:padding="20dp"
+        android:onClick="onEasyButtonClick"
+        android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/easyButton"
-            android:text="@string/easyButtonMsg"
-            android:padding="20dp"
-            android:onClick="onEasyButtonClick"/>
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Or go to..."
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp" />
 
-        </LinearLayout>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favouritesButtonText"
+        android:id="@+id/button"
+        android:onClick="goToFavs"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
