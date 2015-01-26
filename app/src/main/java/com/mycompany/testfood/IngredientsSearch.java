@@ -1,14 +1,16 @@
 package com.mycompany.testfood;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 
 
 public class IngredientsSearch extends ActionBarActivity {
+    EditText mEdit;
     //arraylist that stores chosen ingredients
     private List<String> ingredients_array_list = new ArrayList<>();
 
@@ -23,15 +26,13 @@ public class IngredientsSearch extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_search);
-
-/*
+        mEdit   = (EditText)findViewById(R.id.ingredientEditText);
+/* // Old code for displaying you picked...
         //declare intent
         Intent activityThatCalled = getIntent();
 
-
         String searchButtonSelected =
                 activityThatCalled.getExtras().getString("callingActivity");
-
         //get the actual string
         TextView searchButtonSelectedMessage =
                 (TextView) findViewById(R.id.searchButtonSelected);
@@ -39,10 +40,7 @@ public class IngredientsSearch extends ActionBarActivity {
         //append selected string message to the textview on details page.
         searchButtonSelectedMessage.append(" " + searchButtonSelected);
         */
-        ingredients_array_list.add("rice");
-        ingredients_array_list.add("cheese");
-        ingredients_array_list.add("tomatoes");
-        populateIngredientsList(ingredients_array_list);
+
 
     }
     //fills the ingredients listview with with strings from the passed in array list
@@ -97,5 +95,16 @@ public class IngredientsSearch extends ActionBarActivity {
         Intent goToFavourites = new Intent(this, Favourites.class);
         startActivity(goToFavourites);
         Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
+    }
+
+    public void addIngredient(View view) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
+
+        String inputText = mEdit.getText().toString();
+        Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
+        ingredients_array_list.add(inputText);
+        populateIngredientsList(ingredients_array_list);
+        mEdit.setText("");
     }
 }

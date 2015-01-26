@@ -14,6 +14,7 @@
     <string name="easyButtonMsg">Something Easy </string>
     <string name="favouritesButtonText">Favs</string>
     <string name="homeButtonText">Home</string>
+    <string name="ingredientButtonText">Add Ingredient</string>
     <string name="search_hint">Enter an Ingredient</string>
 
 
