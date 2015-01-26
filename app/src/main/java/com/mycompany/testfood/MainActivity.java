@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void onGoodButtonClick(View view) {
 
-        Intent getSearchResultIntent = new Intent(this, RecipeDetails.class);
+        Intent getSearchResultIntent = new Intent(this, IngredientsSearch.class);
 
         /* put data to be sent to recipe details
         * callingActivity : key for the button that was pressed
@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void onEasyButtonClick(View view) {
 
-        Intent getSearchResultIntent = new Intent(this, RecipeDetails.class);
+        Intent getSearchResultIntent = new Intent(this, IngredientsSearch.class);
 
         /* put data to be sent to recipe details
         * callingActivity : key for the button that was pressed

@@ -15,20 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecipeDetails extends ActionBarActivity {
+public class IngredientsSearch extends ActionBarActivity {
     //arraylist that stores chosen ingredients
     private List<String> ingredients_array_list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        setContentView(R.layout.activity_ingredients_search);
 
-
+/*
         //declare intent
         Intent activityThatCalled = getIntent();
 
-        /* String field to hold data sent from Main (extras)
-        * callingActivity : key from Main. */
+
         String searchButtonSelected =
                 activityThatCalled.getExtras().getString("callingActivity");
 
@@ -38,7 +38,7 @@ public class RecipeDetails extends ActionBarActivity {
 
         //append selected string message to the textview on details page.
         searchButtonSelectedMessage.append(" " + searchButtonSelected);
-
+        */
         ingredients_array_list.add("rice");
         ingredients_array_list.add("cheese");
         ingredients_array_list.add("tomatoes");
@@ -64,7 +64,7 @@ public class RecipeDetails extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recipe_details, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
