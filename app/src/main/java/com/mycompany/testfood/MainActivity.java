@@ -125,7 +125,6 @@ public class MainActivity extends ActionBarActivity {
 
     public void onRecipeDetailsClick(View view) {
         Intent goToRecipeDetails = new Intent(this, recipeDetails.class);
-
         startActivity(goToRecipeDetails);
     }
 }
