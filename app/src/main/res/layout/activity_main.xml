@@ -10,53 +10,135 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pickSearchButtonMessage"
-        android:textSize="20sp"/>
+    <TabHost
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/tabHost">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/goodButton"
-        android:text="@string/goodButtonMsg"
-        android:padding="20dp"
-        android:onClick="onGoodButtonClick"
-        android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/easyButton"
-        android:text="@string/easyButtonMsg"
-        android:padding="20dp"
-        android:onClick="onEasyButtonClick"
-        android:layout_gravity="center_horizontal" />
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Something Recipe Details"
-        android:id="@+id/button3"
-        android:onClick="onRecipeDetailsClick"
-        android:layout_gravity="center_horizontal" />
+            </TabWidget>
 
-    <TextView
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Or go to..."
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/favouritesButtonText"
-        android:id="@+id/button"
-        android:onClick="goToFavs"
-        android:layout_gravity="center_horizontal" />
+                <LinearLayout
+                    android:id="@+id/tabHome"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:focusableInTouchMode="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="50dp"
+                        android:text="@string/pickSearchButtonMessage"
+                        android:textSize="20sp"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/goodButton"
+                        android:text="@string/goodButtonMsg"
+                        android:padding="20dp"
+                        android:onClick="onGoodButtonClick"
+                        android:layout_gravity="center_horizontal" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/easyButton"
+                        android:text="@string/easyButtonMsg"
+                        android:padding="20dp"
+                        android:onClick="onEasyButtonClick"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_marginTop="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Or go to..."
+                        android:id="@+id/textView"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favouritesButtonText"
+                        android:id="@+id/button"
+                        android:onClick="goToFavs"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabFavourites"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:focusable="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favouritesTabsEditionTitle"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/homeButtonText"
+                        android:id="@+id/detailsHomeButton"
+                        android:onClick="goHome"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabDetails"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tabDetailsHolder"
+                        android:textSize="20sp"/>
+
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="200dp"
+                        android:id="@+id/imageView"
+                        android:src="@drawable/detailssurprise"
+                        android:contentDescription="THIS IS A THING"
+                        android:scaleType="fitCenter"
+
+                        android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Steps"
+                        android:textSize="40sp"/>
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 </LinearLayout>
