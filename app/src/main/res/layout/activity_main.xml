@@ -34,14 +34,6 @@
         android:onClick="onEasyButtonClick"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Something Recipe Details"
-        android:id="@+id/button3"
-        android:onClick="onRecipeDetailsClick"
-        android:layout_gravity="center_horizontal" />
-
     <TextView
         android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
