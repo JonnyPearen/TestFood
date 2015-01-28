@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -15,6 +17,13 @@ public class Favourites extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites);
+
+        String test[] = {"Noodles", "Cereal", "Spaghetti", "Bacon", "Banana Bread",
+                "Test", "Food", "Please", "Ignore", "One", "Ring", "Cake", "To",
+                "Rule", "Them", "All", ".", ".", ".", ".", ".", "Easter Egg!"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, test);
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
     }
 
 
@@ -48,14 +57,5 @@ public class Favourites extends ActionBarActivity {
 
         Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
 
-    }
-
-    public void goToFavs(View view) {
-
-        Intent goToFavourites = new Intent(this, Favourites.class);
-
-        startActivity(goToFavourites);
-
-        Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
     }
 }

@@ -74,4 +74,10 @@ public class MainActivity extends ActionBarActivity {
 
         Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
     }
+
+    public void onRecipeDetailsClick(View view) {
+        Intent goToRecipeDetails = new Intent(this, recipeDetails.class);
+
+        startActivity(goToRecipeDetails);
+    }
 }

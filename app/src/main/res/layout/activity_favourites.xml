@@ -11,19 +11,9 @@
     tools:context="com.mycompany.testfood.Favourites">
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_favourites"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/homeButtonText"
-        android:id="@+id/detailsHomeButton"
-        android:onClick="goHome"
+        android:id="@+id/listView"
         android:layout_gravity="center_horizontal" />
-
 </LinearLayout>
