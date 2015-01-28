@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +99,6 @@ public class IngredientsSearch extends ActionBarActivity {
     public void addIngredient(View view) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
-
         String inputText = mEdit.getText().toString();
         Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
         ingredients_array_list.add(inputText);
