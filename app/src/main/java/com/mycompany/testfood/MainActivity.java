@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 
@@ -15,6 +16,28 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //create tabhost object, add buttons and labels
+        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpecHome = tabHost.newTabSpec("home");
+        tabSpecHome.setContent(R.id.tabHome);
+        tabSpecHome.setIndicator("Home");
+        tabHost.addTab(tabSpecHome);
+
+        TabHost.TabSpec tabSpecFavourites = tabHost.newTabSpec("favourites");
+        tabSpecFavourites.setContent(R.id.tabFavourites);
+        tabSpecFavourites.setIndicator("Favourites");
+        tabHost.addTab(tabSpecFavourites);
+
+        TabHost.TabSpec tabSpecDetails = tabHost.newTabSpec("details");
+        tabSpecDetails.setContent(R.id.tabDetails);
+        tabSpecDetails.setIndicator("Details");
+        tabHost.addTab(tabSpecDetails);
+
+
     }
 
 
@@ -37,8 +60,23 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_bad:
+                Toast.makeText(this, ":(", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.action_good:
+                Toast.makeText(this, "Yay", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_favourite:
+                Toast.makeText(this, ":D", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
 
     public void onGoodButtonClick(View view) {
 
@@ -63,6 +101,16 @@ public class MainActivity extends ActionBarActivity {
         getSearchResultIntent.putExtra("callingActivity", "Something Easy");
 
         startActivity(getSearchResultIntent);
+
+    }
+
+    public void goHome(View view) {
+
+        Intent goHome = new Intent(this, MainActivity.class);
+
+        startActivity(goHome);
+
+        Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
 
     }
 

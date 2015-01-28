@@ -8,6 +8,7 @@
     <string name="title_activity_recipe_details">RecipeDetails</string>
     <string name="title_activity_search_results">SearchResults</string>
     <string name="title_activity_favourites">Favourites Page</string>
+
     <string name="buttonSelectedDisplayMessage">The Button You Picked Was :</string>
     <string name="pickSearchButtonMessage">Pick what you\'d rather search for:</string>
     <string name="goodButtonMsg">Something Good</string>
@@ -16,6 +17,9 @@
     <string name="homeButtonText">Home</string>
     <string name="ingredientButtonText">Add Ingredient</string>
     <string name="search_hint">Enter an Ingredient</string>
+    <string name="favouritesTabsEditionTitle">favourites TABS EDITION</string>
+    <string name="tabDetailsHolder">Details Holder</string>
+    <string name="action_good">Thumbs Up</string>
 
 
 </resources>
