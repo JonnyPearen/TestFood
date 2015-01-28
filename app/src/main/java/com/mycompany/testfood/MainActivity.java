@@ -36,8 +36,6 @@ public class MainActivity extends ActionBarActivity {
         tabSpecDetails.setContent(R.id.tabDetails);
         tabSpecDetails.setIndicator("Details");
         tabHost.addTab(tabSpecDetails);
-
-
     }
 
 
