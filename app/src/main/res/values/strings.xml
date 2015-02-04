@@ -21,5 +21,14 @@
     <string name="tabDetailsHolder">Details Holder</string>
     <string name="action_good">Thumbs Up</string>
 
-
+    <string-array name="countries_array">
+        <item>Asparagus</item>
+        <item>Tomatoes</item>
+        <item>Rice</item>
+        <item>Potatoes</item>
+        <item>Carrots</item>
+        <item>Chicken</item>
+        <item>Onions</item>
+        <item>Ham</item>
+    </string-array>
 </resources>

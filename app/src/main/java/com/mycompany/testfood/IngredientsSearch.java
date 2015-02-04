@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 
 
 public class IngredientsSearch extends ActionBarActivity {
-    EditText mEdit;
+    AutoCompleteTextView mEdit;
     //arraylist that stores chosen ingredients
     private List<String> ingredients_array_list = new ArrayList<>();
 
@@ -25,22 +25,16 @@ public class IngredientsSearch extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_search);
-        mEdit   = (EditText)findViewById(R.id.ingredientEditText);
-/* // Old code for displaying you picked...
-        //declare intent
-        Intent activityThatCalled = getIntent();
-
-        String searchButtonSelected =
-                activityThatCalled.getExtras().getString("callingActivity");
-        //get the actual string
-        TextView searchButtonSelectedMessage =
-                (TextView) findViewById(R.id.searchButtonSelected);
-
-        //append selected string message to the textview on details page.
-        searchButtonSelectedMessage.append(" " + searchButtonSelected);
-        */
+        mEdit   = (AutoCompleteTextView)findViewById(R.id.autocomplete_ingredient);
 
 
+        // Get a reference to the AutoCompleteTextView in the layout
+        //AutoCompleteTextView txtView = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
+// Get the string array
+        String[] countries = getResources().getStringArray(R.array.countries_array);
+// Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
+        mEdit.setAdapter(adapter);
     }
     //fills the ingredients listview with with strings from the passed in array list
     private void populateIngredientsList(List<String> a){
@@ -100,9 +94,15 @@ public class IngredientsSearch extends ActionBarActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
         String inputText = mEdit.getText().toString();
-        Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
-        ingredients_array_list.add(inputText);
-        populateIngredientsList(ingredients_array_list);
-        mEdit.setText("");
+        if(!inputText.equals("")){
+            Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
+            ingredients_array_list.add(inputText);
+            populateIngredientsList(ingredients_array_list);
+            mEdit.setText("");
+        }
     }
+
+
+
+
 }

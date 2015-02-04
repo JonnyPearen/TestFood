@@ -33,32 +33,11 @@
 
         </LinearLayout>
 
-
-<!--
-    <TextView
-        android:layout_width="wrap_content"
+    <AutoCompleteTextView
+        android:id="@+id/autocomplete_ingredient"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/searchButtonSelected"
-        android:text="@string/buttonSelectedDisplayMessage"
-        android:textSize="40sp"
-        android:textStyle="italic"/>
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="search box here"
-        android:textSize="30sp"
-        android:id="@+id/searchPlaceHolder" />
-    -->
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ingredientEditText"
-        android:imeOptions="actionSend"/>
+        />
 
     <Button
         android:layout_width="wrap_content"
