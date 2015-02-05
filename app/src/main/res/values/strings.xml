@@ -20,6 +20,9 @@
     <string name="favouritesTabsEditionTitle">favourites TABS EDITION</string>
     <string name="tabDetailsHolder">Details Holder</string>
     <string name="action_good">Thumbs Up</string>
+    <string name="btn_searchActnBarBtn">searchPage</string>
+    <string name="btn_favsActnBarBtn">favsActnBarBtn</string>
+    <string name="btn_detailsActnBarBtn">detailsActBarBtn</string>
 
     <string-array name="countries_array">
         <item>Asparagus</item>

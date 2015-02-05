@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <item android:id="@+id/action_good"
-        android:icon="@drawable/ic_action_good"
-        android:title="@string/action_good"
+    <item android:id="@+id/btn_searchPage"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/btn_searchActnBarBtn"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/action_favourite"
-        android:icon="@drawable/ic_action_favorite"
-        android:title="favouriteActnButton"
+    <item android:id="@+id/btn_favouritesPage"
+        android:icon="@drawable/ic_action_important"
+        android:title="@string/btn_favsActnBarBtn"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/action_bad"
-        android:icon="@drawable/ic_action_bad"
-        android:title="badActnButton"
+    <item android:id="@+id/btn_detailsPage"
+        android:icon="@drawable/ic_action_storage"
+        android:title="@string/btn_detailsActnBarBtn"
         app:showAsAction="always"/>
 
 
@@ -24,8 +24,4 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_item"
-        android:title="shared new item!"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
 </menu>
