@@ -1,14 +1,20 @@
 package com.mycompany.testfood;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+import android.database.sqlite.*;
 
 
 public class Favourites extends ActionBarActivity {
@@ -18,14 +24,61 @@ public class Favourites extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites);
 
-        String test[] = {"Noodles", "Cereal", "Spaghetti", "Bacon", "Banana Bread",
-                "Test", "Food", "Please", "Ignore", "One", "Ring", "Cake", "To",
-                "Rule", "Them", "All", ".", ".", ".", ".", ".", "Easter Egg!"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, test);
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+        makeDB();
     }
 
+    public class FeedReaderDbHelper extends SQLiteOpenHelper {
+        // If you change the database schema, you must increment the database version.
+        public static final int DATABASE_VERSION = 1;
+
+        public FeedReaderDbHelper(Context context) {
+            super(context, "DB1", null, DATABASE_VERSION);
+        }
+        public void onCreate(SQLiteDatabase db) {
+        }
+
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            // This database is only a cache for online data, so its upgrade policy is
+            // to simply to discard the data and start over
+            db.execSQL("DROP TABLE IF EXISTS TEST");
+            onCreate(db);
+        }
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            onUpgrade(db, oldVersion, newVersion);
+        }
+    }
+
+    public void makeDB() throws NullPointerException {
+        FeedReaderDbHelper helper = new FeedReaderDbHelper(getApplicationContext());
+
+        SQLiteDatabase testDB = null;
+
+        try {
+            testDB = helper.getWritableDatabase();
+        } catch (SQLiteException e) {
+            System.out.println("Open failed");
+        }
+
+        //ContentValues values = new ContentValues();
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        String columns[] = {
+                "_id",
+                "Food"
+        };
+
+        int to[] = new int[] {
+            android.R.id.text1,
+            android.R.id.text2
+        };
+
+        Cursor testCursor = testDB.rawQuery("SELECT _id, Food FROM NEW", null);
+        SimpleCursorAdapter testAdapter = new SimpleCursorAdapter(getApplicationContext(),
+            android.R.layout.simple_list_item_2, testCursor, columns, to,
+            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        listView.setAdapter(testAdapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
