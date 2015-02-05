@@ -1,5 +1,6 @@
 package com.mycompany.testfood;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,12 +28,30 @@ public class SearchResults extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent actionBarBtnIntent;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.btn_searchPage:
+                actionBarBtnIntent = new Intent(this, IngredientsSearch.class);
+                startActivity(actionBarBtnIntent);
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.btn_detailsPage:
+                actionBarBtnIntent = new Intent(this, recipeDetails.class);
+                startActivity(actionBarBtnIntent);
+                return true;
+            case R.id.btn_favouritesPage:
+                actionBarBtnIntent = new Intent(this, Favourites.class);
+                startActivity(actionBarBtnIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
