@@ -1,5 +1,6 @@
 package com.mycompany.testfood;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,8 +15,6 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-import android.database.sqlite.*;
-
 
 public class Favourites extends ActionBarActivity {
 
@@ -35,6 +34,7 @@ public class Favourites extends ActionBarActivity {
             super(context, "DB1", null, DATABASE_VERSION);
         }
         public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE NEW (_id INTEGER PRIMARY KEY, Food TEXT);");
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -51,17 +51,26 @@ public class Favourites extends ActionBarActivity {
     public void makeDB() throws NullPointerException {
         FeedReaderDbHelper helper = new FeedReaderDbHelper(getApplicationContext());
 
-        SQLiteDatabase testDB = null;
+        SQLiteDatabase testDB = helper.getWritableDatabase();
 
-        try {
-            testDB = helper.getWritableDatabase();
-        } catch (SQLiteException e) {
-            System.out.println("Open failed");
-        }
+        ContentValues values = new ContentValues();
 
-        //ContentValues values = new ContentValues();
+
+            testDB = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
+
+   /* Create a Table in the Database, if it doesn't already exist */
+            testDB.execSQL("CREATE TABLE IF NOT EXISTS "
+                    + "TEST"
+                    + " (_id VARCHAR, Food TEXT);");
+
+        values.put("_id", 1);
+        values.put("Food", "Pizza");
+
+        testDB.insert("TEST", null, values);
 
         ListView listView = (ListView) findViewById(R.id.listView);
+
+
 
         String columns[] = {
                 "_id",
@@ -73,7 +82,7 @@ public class Favourites extends ActionBarActivity {
             android.R.id.text2
         };
 
-        Cursor testCursor = testDB.rawQuery("SELECT _id, Food FROM NEW", null);
+        Cursor testCursor = testDB.rawQuery("SELECT _id, Food FROM TEST", null);
         SimpleCursorAdapter testAdapter = new SimpleCursorAdapter(getApplicationContext(),
             android.R.layout.simple_list_item_2, testCursor, columns, to,
             CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
