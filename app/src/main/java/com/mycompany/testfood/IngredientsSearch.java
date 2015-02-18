@@ -12,11 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.flurry.android.FlurryAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class IngredientsSearch extends ActionBarActivity {
+    static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";
     AutoCompleteTextView mEdit;
     //arraylist that stores chosen ingredients
     private List<String> ingredients_array_list = new ArrayList<>();
@@ -25,14 +29,20 @@ public class IngredientsSearch extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_search);
-        mEdit   = (AutoCompleteTextView)findViewById(R.id.autocomplete_ingredient);
 
+        //configure Flurry
+        FlurryAgent.setLogEnabled(false);
+        //init Flurry
+        FlurryAgent.init(this, MY_FLURRY_APIKEY);
+
+        mEdit   = (AutoCompleteTextView)findViewById(R.id.autocomplete_ingredient);
 
         // Get a reference to the AutoCompleteTextView in the layout
         //AutoCompleteTextView txtView = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
-// Get the string array
+
+        // Get the string array
         String[] countries = getResources().getStringArray(R.array.countries_array);
-// Create the adapter and set it to the AutoCompleteTextView
+        // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
         mEdit.setAdapter(adapter);
     }
@@ -50,6 +60,13 @@ public class IngredientsSearch extends ActionBarActivity {
                 a );
 
         lv.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("Ingredients_Search_Read");
+
     }
 
     @Override
@@ -79,10 +96,12 @@ public class IngredientsSearch extends ActionBarActivity {
                 return true;
             case R.id.btn_detailsPage:
                 actionBarBtnIntent = new Intent(this, recipeDetails.class);
+                FlurryAgent.logEvent("AB_Details");
                 startActivity(actionBarBtnIntent);
                 return true;
             case R.id.btn_favouritesPage:
                 actionBarBtnIntent = new Intent(this, Favourites.class);
+                FlurryAgent.logEvent("AB_Favourites");
                 startActivity(actionBarBtnIntent);
                 return true;
             default:

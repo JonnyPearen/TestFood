@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 
+import com.flurry.android.FlurryAgent;
+
 //Testing commits did this get overwritten
 public class MainActivity extends ActionBarActivity {
 /* BUTTS */
@@ -15,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FlurryAgent.logEvent("Home_Read");
 
         //create tabhost object, add buttons and labels
         TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
@@ -24,16 +27,19 @@ public class MainActivity extends ActionBarActivity {
         TabHost.TabSpec tabSpecHome = tabHost.newTabSpec("home");
         tabSpecHome.setContent(R.id.tabHome);
         tabSpecHome.setIndicator("Home");
+        FlurryAgent.logEvent("HomeTab");
         tabHost.addTab(tabSpecHome);
 
         TabHost.TabSpec tabSpecFavourites = tabHost.newTabSpec("favourites");
         tabSpecFavourites.setContent(R.id.tabFavourites);
         tabSpecFavourites.setIndicator("Favourites");
+        FlurryAgent.logEvent("FavTab");
         tabHost.addTab(tabSpecFavourites);
 
         TabHost.TabSpec tabSpecDetails = tabHost.newTabSpec("details");
         tabSpecDetails.setContent(R.id.tabDetails);
         tabSpecDetails.setIndicator("Details");
+        FlurryAgent.logEvent("DetailsTab");
         tabHost.addTab(tabSpecDetails);
     }
 
@@ -77,7 +83,6 @@ public class MainActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     public void onGoodButtonClick(View view) {
 

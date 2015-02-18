@@ -1,37 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mycompany.testfood" >
 
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="21"/>
+        <!-- required permission  -->
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <!-- optional permission, highly recommended -->
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+        <!-- opetional permission -->
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/refrigerator_nuked"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
         </activity>
+
         <activity
             android:name=".IngredientsSearch"
             android:label="@string/title_activity_ingredients_search" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SearchResults"
             android:label="@string/title_activity_search_results" >
         </activity>
+
         <activity
             android:name=".Favourites"
             android:label="@string/title_activity_favourites" >
         </activity>
+
         <activity
             android:name=".recipeDetails"
             android:label="@string/title_activity_recipe_details" >
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 public class Favourites extends ActionBarActivity {
 
     @Override
@@ -24,6 +26,13 @@ public class Favourites extends ActionBarActivity {
         setContentView(R.layout.activity_favourites);
 
         makeDB();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("Favourites_Read");
+
     }
 
     public class FeedReaderDbHelper extends SQLiteOpenHelper {
