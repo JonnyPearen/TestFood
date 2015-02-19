@@ -72,7 +72,7 @@ public class SearchResults extends ActionBarActivity {
         EditText ingredientNameBox = (EditText)findViewById(R.id.ingredientNameEditText);
         EditText colorNameBox = (EditText)findViewById(R.id.colorEditText);
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(colorNameBox.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         Ingredient ingredient = new Ingredient();
 
         ingredient.ingredientName = ingredientNameBox.getText().toString();
