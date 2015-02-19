@@ -59,4 +59,10 @@
         android:id="@+id/ingredientsListView"
         android:layout_weight="0.83" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/searchButtonText"
+        android:id="@+id/searchButton"
+        android:onClick="searchRecipies"/>
 </LinearLayout>

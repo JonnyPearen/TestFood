@@ -18,7 +18,6 @@ import com.flurry.android.FlurryAgent;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class IngredientsSearch extends ActionBarActivity {
     static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";
     AutoCompleteTextView mEdit;
@@ -41,9 +40,9 @@ public class IngredientsSearch extends ActionBarActivity {
         //AutoCompleteTextView txtView = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
 
         // Get the string array
-        String[] countries = getResources().getStringArray(R.array.countries_array);
+        String[] ingredients = getResources().getStringArray(R.array.ingredients_array);
         // Create the adapter and set it to the AutoCompleteTextView
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredients);
         mEdit.setAdapter(adapter);
     }
     //fills the ingredients listview with with strings from the passed in array list
@@ -58,7 +57,6 @@ public class IngredientsSearch extends ActionBarActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 a );
-
         lv.setAdapter(arrayAdapter);
     }
 
@@ -123,6 +121,11 @@ public class IngredientsSearch extends ActionBarActivity {
         Intent goToFavourites = new Intent(this, Favourites.class);
         startActivity(goToFavourites);
         Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
+    }
+
+    public void searchRecipies(View view) {
+        Intent searchRecipies = new Intent(this, SearchResults.class);
+        startActivity(searchRecipies);
     }
 
     public void addIngredient(View view) {

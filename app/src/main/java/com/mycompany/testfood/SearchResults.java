@@ -1,10 +1,20 @@
 package com.mycompany.testfood;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
+import android.widget.EditText;
+
+import com.mycompany.testfood.MongoStuff.Ingredient;
+import com.mycompany.testfood.MongoStuff.SaveAsyncTask;
+
+import java.net.UnknownHostException;
 
 
 public class SearchResults extends ActionBarActivity {
@@ -13,6 +23,8 @@ public class SearchResults extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
+
+
     }
 
     @Override
@@ -53,5 +65,25 @@ public class SearchResults extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void saveIngredient(View v) throws UnknownHostException {
+
+        EditText ingredientNameBox = (EditText)findViewById(R.id.ingredientNameEditText);
+        EditText colorNameBox = (EditText)findViewById(R.id.colorEditText);
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(colorNameBox.getWindowToken(), 0);
+        Ingredient ingredient = new Ingredient();
+
+        ingredient.ingredientName = ingredientNameBox.getText().toString();
+        ingredient.color = colorNameBox.getText().toString();
+
+        SaveAsyncTask tsk = new SaveAsyncTask();
+        tsk.execute(ingredient);
+
+        //displays the contents of the mongodb doc in a webview
+        WebView webView = (WebView) findViewById(R.id.webView);
+        webView.loadUrl("https://api.mongolab.com/api/1/databases/testfooddb/collections/ingredientstest?apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe");
+
     }
 }
