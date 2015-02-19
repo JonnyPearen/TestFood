@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.EditText;
 
+import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.Ingredient;
 import com.mycompany.testfood.MongoStuff.SaveAsyncTask;
 
@@ -65,6 +66,13 @@ public class SearchResults extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("Database_pls");
+
     }
 
     public void saveIngredient(View v) throws UnknownHostException {

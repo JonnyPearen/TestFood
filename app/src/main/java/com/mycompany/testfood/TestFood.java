@@ -42,6 +42,7 @@ public class TestFood extends Application {
         FlurryAgent.logEvent("Details_Read", articleParams, true);
         FlurryAgent.logEvent("Ingredients_Search_Read", articleParams, true);
         FlurryAgent.logEvent("Favourites_Read", articleParams, true);
+        FlurryAgent.logEvent("Database_pls", articleParams, true);
     }
 
 }
