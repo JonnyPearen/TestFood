@@ -14,18 +14,26 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
+import com.mycompany.testfood.MongoStuff.AsyncResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.mycompany.testfood.MongoStuff.RequestTask;
 
-public class IngredientsSearch extends ActionBarActivity {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class IngredientsSearch extends ActionBarActivity implements AsyncResponse {
     static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";
     AutoCompleteTextView mEdit;
     //arraylist that stores chosen ingredients
     private List<String> ingredients_array_list = new ArrayList<>();
+   // public String[] ingredients = new String[3];
+    public ArrayList<String> ingredients = new ArrayList();
+    RequestTask r1 = new RequestTask();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_search);
 
@@ -36,14 +44,34 @@ public class IngredientsSearch extends ActionBarActivity {
 
         mEdit   = (AutoCompleteTextView)findViewById(R.id.autocomplete_ingredient);
 
-        // Get a reference to the AutoCompleteTextView in the layout
-        //AutoCompleteTextView txtView = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
 
-        // Get the string array
-        String[] ingredients = getResources().getStringArray(R.array.ingredients_array);
+        //String[] ingredients = getResources().getStringArray(R.array.ingredients_array);
+
+        //Get the available ingredients from mongoDB
+        r1.execute("https://api.mongolab.com/api/1/databases/testfooddb/collections/ingredientstest?apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe");
+        r1.delegate = this;
+
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredients);
         mEdit.setAdapter(adapter);
+
+
+
+    }
+
+    //parse the JSON ingredients from MongoDB into the ingredients array
+    public void processFinish(String output){
+        try{
+            JSONArray json = new JSONArray(output);
+            //ingredients = new String[55];
+            for(int i=0;i<json.length();i++) {
+
+                JSONObject e = json.getJSONObject(i);
+                ingredients.add(e.getJSONObject("document").getString("ingredientName"));
+            }
+        } catch(Exception e){
+            Toast.makeText(this, "Ingredient parsing failed", Toast.LENGTH_SHORT).show();
+        }
     }
     //fills the ingredients listview with with strings from the passed in array list
     private void populateIngredientsList(List<String> a){

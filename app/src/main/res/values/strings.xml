@@ -24,14 +24,4 @@
     <string name="btn_favsActnBarBtn">favsActnBarBtn</string>
     <string name="btn_detailsActnBarBtn">detailsActBarBtn</string>
 
-    <string-array name="ingredients_array">
-        <item>Asparagus</item>
-        <item>Tomatoes</item>
-        <item>Rice</item>
-        <item>Potatoes</item>
-        <item>Carrots</item>
-        <item>Chicken</item>
-        <item>Onions</item>
-        <item>Ham</item>
-    </string-array>
 </resources>
