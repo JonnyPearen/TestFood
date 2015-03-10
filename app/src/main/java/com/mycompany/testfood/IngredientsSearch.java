@@ -19,9 +19,9 @@ import com.mycompany.testfood.MongoStuff.AsyncResponse;
 import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.testfood.MongoStuff.RequestTask;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 public class IngredientsSearch extends ActionBarActivity implements AsyncResponse {
     static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";
