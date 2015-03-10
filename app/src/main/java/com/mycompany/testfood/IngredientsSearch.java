@@ -168,7 +168,4 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         }
     }
 
-
-
-
 }
