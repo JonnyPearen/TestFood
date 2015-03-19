@@ -2,24 +2,15 @@
 <resources>
 
     <string name="app_name">TestFood</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_ingredients_search">Ingredients</string>
-    <string name="title_activity_recipe_details">RecipeDetails</string>
+    <string name="title_activity_recipe_details">Recipe Details</string>
     <string name="title_activity_search_results">SearchResults</string>
-    <string name="title_activity_favourites">Favourites Page</string>
-    <string name="buttonSelectedDisplayMessage">The Button You Picked Was :</string>
-    <string name="pickSearchButtonMessage">Pick what you\'d rather search for:</string>
-    <string name="goodButtonMsg">Something Good</string>
-    <string name="easyButtonMsg">Something Easy </string>
-    <string name="favouritesButtonText">Favs</string>
-    <string name="homeButtonText">Home</string>
+    <string name="title_activity_favourites">Favourites</string>
     <string name="ingredientButtonText">Add Ingredient</string>
     <string name="searchButtonText">Search Recipes</string>
     <string name="search_hint">Enter an Ingredient</string>
-    <string name="favouritesTabsEditionTitle">favourites TABS EDITION</string>
     <string name="tabDetailsHolder">Details Holder</string>
-    <string name="action_good">Thumbs Up</string>
     <string name="btn_searchActnBarBtn">searchPage</string>
     <string name="btn_favsActnBarBtn">favsActnBarBtn</string>
     <string name="btn_detailsActnBarBtn">detailsActBarBtn</string>

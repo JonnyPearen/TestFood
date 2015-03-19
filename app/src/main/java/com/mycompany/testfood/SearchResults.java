@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.EditText;
-
 import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.Ingredient;
 import com.mycompany.testfood.MongoStuff.SaveAsyncTask;
@@ -24,14 +23,12 @@ public class SearchResults extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search_results, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

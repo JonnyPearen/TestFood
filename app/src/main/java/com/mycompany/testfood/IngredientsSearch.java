@@ -135,15 +135,6 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         }
     }
 
-    public void goHome(View view) {
-
-        Intent goHome = new Intent(this, MainActivity.class);
-        startActivity(goHome);
-
-        Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
-
-    }
-
     public void goToFavs(View view) {
 
         Intent goToFavourites = new Intent(this, Favourites.class);

@@ -3,14 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mycompany.testfood" >
 
-    <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="21"/>
         <!-- required permission  -->
         <uses-permission android:name="android.permission.INTERNET"/>
         <!-- optional permission, highly recommended -->
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-        <!-- opetional permission -->
+        <!-- optional permission -->
         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     
     
@@ -19,11 +16,6 @@
         android:icon="@drawable/refrigerator_nuked"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
-        </activity>
 
         <activity
             android:name=".IngredientsSearch"

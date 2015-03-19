@@ -101,7 +101,7 @@ public class Favourites extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_favourites, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -138,7 +138,7 @@ public class Favourites extends ActionBarActivity {
 
     public void goHome(View view) {
 
-        Intent goHome = new Intent(this, MainActivity.class);
+        Intent goHome = new Intent(this, IngredientsSearch.class);
 
         startActivity(goHome);
 
