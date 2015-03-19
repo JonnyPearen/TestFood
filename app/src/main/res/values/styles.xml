@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
-
         <item name="colorPrimary">@color/material_blue_grey_800</item>
     </style>
 
