@@ -101,7 +101,7 @@ public class Favourites extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_favourites, menu);
         return true;
     }
 
@@ -114,7 +114,7 @@ public class Favourites extends ActionBarActivity {
         Intent actionBarBtnIntent;
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_addFavourite || id == R.id.action_removeFavourite) {
             return true;
         }
 
@@ -122,8 +122,6 @@ public class Favourites extends ActionBarActivity {
             case R.id.btn_searchPage:
                 actionBarBtnIntent = new Intent(this, IngredientsSearch.class);
                 startActivity(actionBarBtnIntent);
-                return true;
-            case R.id.action_settings:
                 return true;
             case R.id.btn_detailsPage:
                 actionBarBtnIntent = new Intent(this, recipeDetails.class);

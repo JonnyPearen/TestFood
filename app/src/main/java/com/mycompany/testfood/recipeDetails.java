@@ -21,7 +21,7 @@ public class recipeDetails extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_recipe_details, menu);
         return true;
     }
 
@@ -33,17 +33,15 @@ public class recipeDetails extends ActionBarActivity {
         int id = item.getItemId();
         Intent actionBarBtnIntent;
 
-        //noinspection SimplifiableIfStatement
+        /*noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         switch (item.getItemId()) {
             case R.id.btn_searchPage:
                 actionBarBtnIntent = new Intent(this, IngredientsSearch.class);
                 startActivity(actionBarBtnIntent);
-                return true;
-            case R.id.action_settings:
                 return true;
             case R.id.btn_detailsPage:
                 return true;

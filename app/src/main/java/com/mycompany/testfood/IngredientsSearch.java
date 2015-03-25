@@ -110,15 +110,8 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         int id = item.getItemId();
         Intent actionBarBtnIntent;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         switch (item.getItemId()) {
             case R.id.btn_searchPage:
-                return true;
-            case R.id.action_settings:
                 return true;
             case R.id.btn_detailsPage:
                 actionBarBtnIntent = new Intent(this, recipeDetails.class);

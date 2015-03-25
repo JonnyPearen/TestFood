@@ -3,8 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mycompany.testfood.recipeDetails">
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/btn_searchPage"
+        android:icon="@drawable/ic_search_white_2x"
+        android:title="@string/btn_searchActnBarBtn"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/btn_favouritesPage"
+        android:icon="@drawable/ic_stars_white_2x"
+        android:title="@string/btn_favsActnBarBtn"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/action_addFavourite"
+        android:title="@string/addFavourite"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_removeFavourite"
+        android:title="@string/removeFavourite"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+
 </menu>
