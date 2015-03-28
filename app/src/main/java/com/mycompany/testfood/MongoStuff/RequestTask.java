@@ -45,6 +45,5 @@ public class RequestTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         delegate.processFinish(result);
-        //Do anything with response..
     }
 }

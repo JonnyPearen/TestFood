@@ -9,20 +9,78 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+import java.net.URLEncoder;
+
 import com.flurry.android.FlurryAgent;
+import com.mycompany.testfood.MongoStuff.AsyncResponse;
 import com.mycompany.testfood.MongoStuff.Ingredient;
+import com.mycompany.testfood.MongoStuff.RequestTask;
 import com.mycompany.testfood.MongoStuff.SaveAsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class SearchResults extends ActionBarActivity {
-
+public class SearchResults extends ActionBarActivity implements AsyncResponse{
+    //Stores the chosen ingredients. Passed in form the Ingredient search page
+    private ArrayList<String> chosen_Ingredients;
+    //holds the names of the recipes retrieved
+    private ArrayList resultRecipes = new ArrayList<String>();
+    RequestTask getResultsTask = new RequestTask();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
+
+        //gets ingredients picked from Ingredients search page via intent
+        chosen_Ingredients = getIntent().getStringArrayListExtra("ingredients_array_list");
+
+        //runs the search query
+        getResultsTask.execute(getSearchQuery(chosen_Ingredients));
+        getResultsTask.delegate = this;
+
+    }
+    /*builds URL to retrieve recipes based on the arraylist of ingredients passed in*/
+    private String getSearchQuery(ArrayList<String> ingredientsList){
+        String SearchURL = "https://api.mongolab.com/api/1/databases/testfooddb/collections/recipes?q=";
+        String searchQuery = "{\"ingredients\":{\"$in\":[";
+        try{
+            for(String ingredient : ingredientsList){
+                searchQuery = searchQuery + "\"" + ingredient + "\"";
+                if(ingredient != ingredientsList.get(ingredientsList.size() - 1)){
+                    searchQuery = searchQuery + ",";
+                }
+            }
+            searchQuery = searchQuery + "]}}";
+            SearchURL = SearchURL + URLEncoder.encode(searchQuery, "UTF-8") + "&apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe";
+            //Toast.makeText(this, SearchURL, Toast.LENGTH_SHORT).show();
+            } catch(Exception e){
+            Toast.makeText(this, "sending request failed", Toast.LENGTH_SHORT).show();
+        }
+        return SearchURL;
+    }
+/*processes the retrieved recipes. adds all recipe names to the resultRecipes arraylist. */
+    public void processFinish(String output){
+        try{
+            JSONArray json = new JSONArray(output);
+            for(int i=0;i<json.length();i++) {
+
+                JSONObject e = json.getJSONObject(i);
+                resultRecipes.add(e.getString("name"));
+            }
+        } catch(Exception e){
+            Toast.makeText(this, "No Entries Found", Toast.LENGTH_SHORT).show();
+        }
+        populateIngredientsList(resultRecipes);
+
     }
 
     @Override
@@ -70,23 +128,18 @@ public class SearchResults extends ActionBarActivity {
 
     }
 
-    public void saveIngredient(View v) throws UnknownHostException {
+    private void populateIngredientsList(List<String> a){
 
-        EditText ingredientNameBox = (EditText)findViewById(R.id.ingredientNameEditText);
-        EditText colorNameBox = (EditText)findViewById(R.id.colorEditText);
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        Ingredient ingredient = new Ingredient();
+        ListView lv = (ListView) findViewById(R.id.resultsListView);
 
-        ingredient.ingredientName = ingredientNameBox.getText().toString();
-        ingredient.color = colorNameBox.getText().toString();
-
-        SaveAsyncTask tsk = new SaveAsyncTask();
-        tsk.execute(ingredient);
-
-        //displays the contents of the mongodb doc in a webview
-        WebView webView = (WebView) findViewById(R.id.webView);
-        webView.loadUrl("https://api.mongolab.com/api/1/databases/testfooddb/collections/ingredientstest?apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe");
-
+        // This is the array adapter, takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and the
+        // array as a third parameter.
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                a );
+        lv.setAdapter(arrayAdapter);
     }
+
 }

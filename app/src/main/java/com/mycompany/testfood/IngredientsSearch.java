@@ -27,7 +27,7 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
     static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";
     AutoCompleteTextView mEdit;
     //arraylist that stores chosen ingredients
-    private List<String> ingredients_array_list = new ArrayList<>();
+    private ArrayList ingredients_array_list = new ArrayList();
    // public String[] ingredients = new String[3];
     public ArrayList<String> ingredients = new ArrayList();
     RequestTask r1 = new RequestTask();
@@ -137,6 +137,7 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
 
     public void searchRecipies(View view) {
         Intent searchRecipies = new Intent(this, SearchResults.class);
+        searchRecipies.putStringArrayListExtra("ingredients_array_list", ingredients_array_list);
         startActivity(searchRecipies);
     }
 
