@@ -60,8 +60,8 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse{
                 }
             }
             searchQuery = searchQuery + "]}}";
+            //URLEncoder replaces special characters with their code useful for geting rid of brackets ands stuff
             SearchURL = SearchURL + URLEncoder.encode(searchQuery, "UTF-8") + "&apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe";
-            //Toast.makeText(this, SearchURL, Toast.LENGTH_SHORT).show();
             } catch(Exception e){
             Toast.makeText(this, "sending request failed", Toast.LENGTH_SHORT).show();
         }
@@ -70,9 +70,11 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse{
 /*processes the retrieved recipes. adds all recipe names to the resultRecipes arraylist. */
     public void processFinish(String output){
         try{
-            JSONArray json = new JSONArray(output);
-            for(int i=0;i<json.length();i++) {
 
+            JSONArray json = new JSONArray(output);
+            //loops through all the recipes returned.
+            // If you need to get more details from the returned recipes this is your loop :)
+            for(int i=0;i<json.length();i++) {
                 JSONObject e = json.getJSONObject(i);
                 resultRecipes.add(e.getString("name"));
             }
