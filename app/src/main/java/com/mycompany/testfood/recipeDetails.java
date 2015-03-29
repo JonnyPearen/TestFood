@@ -1,15 +1,17 @@
 package com.mycompany.testfood;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
-import com.mycompany.testfood.MongoStuff.AsyncResponse;
 import com.mycompany.testfood.MongoStuff.RequestTask;
+import com.mycompany.testfood.MongoStuff.AsyncResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,52 +19,25 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+public class recipeDetails extends Activity implements AsyncResponse{
 
-public class recipeDetails extends ActionBarActivity implements AsyncResponse{
     RequestTask getResultsTask = new RequestTask();
     String recipeName;
+    ArrayList<String> recipe_steps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
         FlurryAgent.logEvent("Details_Read");
-        recipeName = getIntent().getStringExtra("recipeName");
-        String recipeName = getIntent().getStringExtra("recipeName");
+
+        recipe_steps = new ArrayList<>();
+
+        recipeName = "rice";
+        //String recipeName = getIntent().getStringExtra("recipeName");
         //runs the search query
         getResultsTask.execute(getRecipeURL(recipeName));
         getResultsTask.delegate = this;
-
-    }
-    private String getRecipeURL(String recipeName) {
-        //add to oncreate to get recipe name from intent:
-        //String recipeName = getIntent().getStringExtra("recipeName");
-
-        String SearchURL = "https://api.mongolab.com/api/1/databases/testfooddb/collections/recipes?q=";
-        try{
-            SearchURL = SearchURL + URLEncoder.encode("{\"name\":\"" + recipeName + "\"}", "UTF-8") + "&apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe";
-        } catch (Exception e) {
-            Toast.makeText(this, "making request string failed", Toast.LENGTH_SHORT).show();
-        }
-        return SearchURL;
-    }
-
-    public void processFinish(String output) {
-        try {
-            JSONArray json = new JSONArray(output);
-            //loops through all the recipes returned.
-            JSONObject e = json.getJSONObject(0);
-            String description = "nothing";
-            description = e.getString("description");
-            Toast.makeText(this, description, Toast.LENGTH_SHORT).show();
-            /*
-            for (int i = 0; i < json.length(); i++) {
-                JSONObject e = json.getJSONObject(i);
-                resultRecipes.add(e.getString("name"));
-            }
-            */
-        } catch (Exception e) {
-            Toast.makeText(this, "No Entries Found", Toast.LENGTH_SHORT).show();
-        }
 
     }
 
@@ -72,6 +47,13 @@ public class recipeDetails extends ActionBarActivity implements AsyncResponse{
         getMenuInflater().inflate(R.menu.menu_recipe_details, menu);
         return true;
     }
+
+    /*
+    @Override
+    protected void onListItemClick(ListView lv, View v, int position, long id) {
+        /String item = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -100,5 +82,66 @@ public class recipeDetails extends ActionBarActivity implements AsyncResponse{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void populateIngredientsList(ArrayList<String> a) {
+        ListView lv = (ListView) findViewById(R.id.list);
+
+        // This is the array adapter, takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and the
+        // array as a third parameter.
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                a);
+        lv.setAdapter(arrayAdapter);
+    }
+
+
+    private String getRecipeURL(String recipeName) {
+        //add to oncreate to get recipe name from intent:
+        //String recipeName = getIntent().getStringExtra("recipeName");
+
+        String SearchURL = "https://api.mongolab.com/api/1/databases/testfooddb/collections/recipes?q=";
+        try{
+            SearchURL = SearchURL + URLEncoder.encode("{\"name\":\"" + recipeName + "\"}", "UTF-8") + "&apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe";
+        } catch (Exception e) {
+            Toast.makeText(this, "making request string failed", Toast.LENGTH_SHORT).show();
+        }
+        return SearchURL;
+    }
+
+
+    public void processFinish(String output) {
+        try {
+            JSONArray json = new JSONArray(output);
+            //loops through all the recipes returned.
+            JSONObject e = json.getJSONObject(0);
+            String name = "";
+            String ingredients = "";
+            String instructions = "";
+            String description = "";
+            name = e.getString("name");
+            ingredients = e.getString("ingredients");
+            JSONArray butt = new JSONArray(ingredients);
+            description = e.getString("description");
+            recipe_steps.add(name);
+            recipe_steps.add(ingredients);
+            recipe_steps.add(instructions);
+            recipe_steps.add(description);
+            populateIngredientsList(recipe_steps);
+            for (int i = 0; i < butt.length(); i++) {
+                JSONObject f = butt.getJSONObject(i);
+                String anIng = f.toString();
+                Toast.makeText(this, anIng, Toast.LENGTH_LONG).show();
+                //populateIngredientsList(f.toString());
+            }
+
+
+
+        } catch (Exception e) {
+            Toast.makeText(this, "No Entries Found", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
