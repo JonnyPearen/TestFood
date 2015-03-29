@@ -5,17 +5,65 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
+import com.mycompany.testfood.MongoStuff.AsyncResponse;
+import com.mycompany.testfood.MongoStuff.RequestTask;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 
-public class recipeDetails extends ActionBarActivity {
-
+public class recipeDetails extends ActionBarActivity implements AsyncResponse{
+    RequestTask getResultsTask = new RequestTask();
+    String recipeName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
         FlurryAgent.logEvent("Details_Read");
+        recipeName = getIntent().getStringExtra("recipeName");
+        String recipeName = getIntent().getStringExtra("recipeName");
+        //runs the search query
+        getResultsTask.execute(getRecipeURL(recipeName));
+        getResultsTask.delegate = this;
+
+    }
+    private String getRecipeURL(String recipeName) {
+        //add to oncreate to get recipe name from intent:
+        //String recipeName = getIntent().getStringExtra("recipeName");
+
+        String SearchURL = "https://api.mongolab.com/api/1/databases/testfooddb/collections/recipes?q=";
+        try{
+            SearchURL = SearchURL + URLEncoder.encode("{\"name\":\"" + recipeName + "\"}", "UTF-8") + "&apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe";
+        } catch (Exception e) {
+            Toast.makeText(this, "making request string failed", Toast.LENGTH_SHORT).show();
+        }
+        return SearchURL;
+    }
+
+    public void processFinish(String output) {
+        try {
+            JSONArray json = new JSONArray(output);
+            //loops through all the recipes returned.
+            JSONObject e = json.getJSONObject(0);
+            String description = "nothing";
+            description = e.getString("description");
+            Toast.makeText(this, description, Toast.LENGTH_SHORT).show();
+            /*
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject e = json.getJSONObject(i);
+                resultRecipes.add(e.getString("name"));
+            }
+            */
+        } catch (Exception e) {
+            Toast.makeText(this, "No Entries Found", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
