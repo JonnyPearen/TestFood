@@ -12,16 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.AsyncResponse;
-
 import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.testfood.MongoStuff.RequestTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 
 public class IngredientsSearch extends ActionBarActivity implements AsyncResponse {
     static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";

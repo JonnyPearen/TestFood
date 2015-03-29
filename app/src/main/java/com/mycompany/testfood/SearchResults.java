@@ -1,14 +1,17 @@
 package com.mycompany.testfood;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchResults extends ActionBarActivity implements AsyncResponse{
+public class SearchResults extends Activity implements AsyncResponse, AdapterView.OnItemClickListener{
     //Stores the chosen ingredients. Passed in form the Ingredient search page
     private ArrayList<String> chosen_Ingredients;
     //holds the names of the recipes retrieved
@@ -46,8 +49,18 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse{
         //runs the search query
         getResultsTask.execute(getSearchQuery(chosen_Ingredients));
         getResultsTask.delegate = this;
-
+        ListView listview = (ListView) findViewById(R.id.resultsListView);
+        listview.setOnItemClickListener(this);
     }
+
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        //Toast.makeText(this, (String)resultRecipes.get(position), Toast.LENGTH_SHORT).show();
+        Intent goToDetails = new Intent();
+        goToDetails.setClass(this, recipeDetails.class);
+        goToDetails.putExtra("RecipeName", (String)resultRecipes.get(position));
+        startActivity(goToDetails);
+    }
+
     /*builds URL to retrieve recipes based on the arraylist of ingredients passed in*/
     private String getSearchQuery(ArrayList<String> ingredientsList){
         String SearchURL = "https://api.mongolab.com/api/1/databases/testfooddb/collections/recipes?q=";
