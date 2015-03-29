@@ -18,6 +18,7 @@ import java.util.List;
 
 public class IngredientsSearch extends ActionBarActivity {
     AutoCompleteTextView mEdit;
+
     //arraylist that stores chosen ingredients
     private List<String> ingredients_array_list = new ArrayList<>();
 
@@ -25,21 +26,22 @@ public class IngredientsSearch extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_search);
-        mEdit   = (AutoCompleteTextView)findViewById(R.id.autocomplete_ingredient);
-
+        mEdit = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
 
         // Get a reference to the AutoCompleteTextView in the layout
         //AutoCompleteTextView txtView = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
-// Get the string array
+        // Get the string array
         String[] countries = getResources().getStringArray(R.array.countries_array);
-// Create the adapter and set it to the AutoCompleteTextView
+
+        // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
         mEdit.setAdapter(adapter);
     }
-    //fills the ingredients listview with with strings from the passed in array list
-    private void populateIngredientsList(List<String> a){
 
-       ListView lv = (ListView) findViewById(R.id.ingredientsListView);
+    //fills the ingredients listview with with strings from the passed in array list
+    private void populateIngredientsList(List<String> a) {
+
+        ListView lv = (ListView) findViewById(R.id.ingredientsListView);
 
         // This is the array adapter, takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and the
@@ -47,7 +49,7 @@ public class IngredientsSearch extends ActionBarActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
-                a );
+                a);
 
         lv.setAdapter(arrayAdapter);
     }
@@ -91,34 +93,28 @@ public class IngredientsSearch extends ActionBarActivity {
     }
 
     public void goHome(View view) {
-
         Intent goHome = new Intent(this, MainActivity.class);
         startActivity(goHome);
-
         Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
-
     }
 
     public void goToFavs(View view) {
-
         Intent goToFavourites = new Intent(this, Favourites.class);
         startActivity(goToFavourites);
         Toast.makeText(this, "You Chose Favourites", Toast.LENGTH_SHORT).show();
     }
 
     public void addIngredient(View view) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
         String inputText = mEdit.getText().toString();
-        if(!inputText.equals("")){
+        if (!inputText.equals("")) {
             Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
             ingredients_array_list.add(inputText);
             populateIngredientsList(ingredients_array_list);
             mEdit.setText("");
         }
     }
-
-
 
 
 }

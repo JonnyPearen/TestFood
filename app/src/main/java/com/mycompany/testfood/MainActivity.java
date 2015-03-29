@@ -10,14 +10,14 @@ import android.widget.TabHost;
 
 //Testing commits did this get overwritten
 public class MainActivity extends ActionBarActivity {
-/* BUTTS */
+    /* BUTTS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //create tabhost object, add buttons and labels
-        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
         tabHost.setup();
 
@@ -117,7 +117,6 @@ public class MainActivity extends ActionBarActivity {
         Intent goToFavourites = new Intent(this, Favourites.class);
         startActivity(goToFavourites);
     }
-
 
 
     public void onRecipeDetailsClick(View view) {
