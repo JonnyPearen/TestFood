@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import java.net.URLEncoder;
 
 import com.flurry.android.FlurryAgent;
@@ -32,12 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchResults extends Activity implements AsyncResponse, AdapterView.OnItemClickListener{
+public class SearchResults extends Activity implements AsyncResponse, AdapterView.OnItemClickListener {
     //Stores the chosen ingredients. Passed in form the Ingredient search page
     private ArrayList<String> chosen_Ingredients;
     //holds the names of the recipes retrieved
     private ArrayList resultRecipes = new ArrayList<String>();
     RequestTask getResultsTask = new RequestTask();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,45 +59,46 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
         //Toast.makeText(this, (String)resultRecipes.get(position), Toast.LENGTH_SHORT).show();
         Intent goToDetails = new Intent();
         goToDetails.setClass(this, recipeDetails.class);
-        goToDetails.putExtra("RecipeName", (String)resultRecipes.get(position));
+        goToDetails.putExtra("RecipeName", (String) resultRecipes.get(position));
         startActivity(goToDetails);
     }
 
     /*builds URL to retrieve recipes based on the arraylist of ingredients passed in*/
-    private String getSearchQuery(ArrayList<String> ingredientsList){
+    private String getSearchQuery(ArrayList<String> ingredientsList) {
         String SearchURL = "https://api.mongolab.com/api/1/databases/testfooddb/collections/recipes?q=";
         String searchQuery = "{\"ingredients\":{\"$in\":[";
-        try{
-            for(String ingredient : ingredientsList){
+
+        try {
+            for (String ingredient : ingredientsList) {
                 searchQuery = searchQuery + "\"" + ingredient + "\"";
-                if(ingredient != ingredientsList.get(ingredientsList.size() - 1)){
+                if (ingredient != ingredientsList.get(ingredientsList.size() - 1)) {
                     searchQuery = searchQuery + ",";
                 }
             }
             searchQuery = searchQuery + "]}}";
             //URLEncoder replaces special characters with their code useful for geting rid of brackets ands stuff
             SearchURL = SearchURL + URLEncoder.encode(searchQuery, "UTF-8") + "&apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe";
-            } catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "sending request failed", Toast.LENGTH_SHORT).show();
         }
         return SearchURL;
     }
-/*processes the retrieved recipes. adds all recipe names to the resultRecipes arraylist. */
-    public void processFinish(String output){
-        try{
 
+    /*processes the retrieved recipes. adds all recipe names to the resultRecipes arraylist. */
+    public void processFinish(String output) {
+        try {
             JSONArray json = new JSONArray(output);
             //loops through all the recipes returned.
             // If you need to get more details from the returned recipes this is your loop :)
-            for(int i=0;i<json.length();i++) {
+            for (int i = 0; i < json.length(); i++) {
                 JSONObject e = json.getJSONObject(i);
                 resultRecipes.add(e.getString("name"));
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "No Entries Found", Toast.LENGTH_SHORT).show();
         }
-        populateIngredientsList(resultRecipes);
 
+        populateIngredientsList(resultRecipes);
     }
 
     @Override
@@ -143,8 +146,7 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
 
     }
 
-    private void populateIngredientsList(List<String> a){
-
+    private void populateIngredientsList(List<String> a) {
         ListView lv = (ListView) findViewById(R.id.resultsListView);
 
         // This is the array adapter, takes the context of the activity as a
@@ -153,8 +155,7 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
-                a );
+                a);
         lv.setAdapter(arrayAdapter);
     }
-
 }

@@ -1,19 +1,20 @@
 package com.mycompany.testfood.MongoStuff;
-        import android.os.AsyncTask;
 
-        import org.apache.http.HttpResponse;
-        import org.apache.http.HttpStatus;
-        import org.apache.http.StatusLine;
-        import org.apache.http.client.ClientProtocolException;
-        import org.apache.http.client.HttpClient;
-        import org.apache.http.client.methods.HttpGet;
-        import org.apache.http.impl.client.DefaultHttpClient;
+import android.os.AsyncTask;
 
-        import java.io.ByteArrayOutputStream;
-        import java.io.IOException;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class RequestTask extends AsyncTask<String, String, String> {
-    public AsyncResponse delegate=null;
+    public AsyncResponse delegate = null;
 
     @Override
     protected String doInBackground(String... uri) {
@@ -23,12 +24,12 @@ public class RequestTask extends AsyncTask<String, String, String> {
         try {
             response = httpclient.execute(new HttpGet(uri[0]));
             StatusLine statusLine = response.getStatusLine();
-            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+            if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
                 response.getEntity().writeTo(out);
                 responseString = out.toString();
                 out.close();
-            } else{
+            } else {
                 //Closes the connection.
                 response.getEntity().getContent().close();
                 throw new IOException(statusLine.getReasonPhrase());

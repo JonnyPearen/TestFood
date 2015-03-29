@@ -42,6 +42,7 @@ public class Favourites extends ActionBarActivity {
         public FeedReaderDbHelper(Context context) {
             super(context, "DB1", null, DATABASE_VERSION);
         }
+
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE NEW (_id INTEGER PRIMARY KEY, Food TEXT);");
         }
@@ -52,6 +53,7 @@ public class Favourites extends ActionBarActivity {
             db.execSQL("DROP TABLE IF EXISTS TEST");
             onCreate(db);
         }
+
         public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             onUpgrade(db, oldVersion, newVersion);
         }
@@ -65,12 +67,12 @@ public class Favourites extends ActionBarActivity {
         ContentValues values = new ContentValues();
 
 
-            testDB = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
+        testDB = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
 
-   /* Create a Table in the Database, if it doesn't already exist */
-            testDB.execSQL("CREATE TABLE IF NOT EXISTS "
-                    + "TEST"
-                    + " (_id VARCHAR, Food TEXT);");
+            /* Create a Table in the Database, if it doesn't already exist */
+        testDB.execSQL("CREATE TABLE IF NOT EXISTS "
+                + "TEST"
+                + " (_id VARCHAR, Food TEXT);");
 
         values.put("_id", 1);
         values.put("Food", "Pizza");
@@ -80,21 +82,20 @@ public class Favourites extends ActionBarActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
 
 
-
         String columns[] = {
                 "_id",
                 "Food"
         };
 
-        int to[] = new int[] {
-            android.R.id.text1,
-            android.R.id.text2
+        int to[] = new int[]{
+                android.R.id.text1,
+                android.R.id.text2
         };
 
         Cursor testCursor = testDB.rawQuery("SELECT _id, Food FROM TEST", null);
         SimpleCursorAdapter testAdapter = new SimpleCursorAdapter(getApplicationContext(),
-            android.R.layout.simple_list_item_2, testCursor, columns, to,
-            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                android.R.layout.simple_list_item_2, testCursor, columns, to,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         listView.setAdapter(testAdapter);
     }
 

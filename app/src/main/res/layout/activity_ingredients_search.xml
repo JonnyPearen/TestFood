@@ -50,5 +50,5 @@
         android:layout_height="wrap_content"
         android:text="@string/searchButtonText"
         android:id="@+id/searchButton"
-        android:onClick="searchRecipies"/>
+        android:onClick="searchRecipes"/>
 </LinearLayout>
