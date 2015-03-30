@@ -11,6 +11,14 @@
     tools:context="com.mycompany.testfood.IngredientsSearch"
     android:weightSum="1">
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/test_food_icon"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

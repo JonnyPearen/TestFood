@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="30sp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textColor="#FFFFFF"
         android:background="#E64A19"/>
 

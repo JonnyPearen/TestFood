@@ -8,9 +8,4 @@
         android:title="@string/btn_searchActnBarBtn"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/btn_detailsPage"
-        android:icon="@drawable/ic_list_white_2x"
-        android:title="@string/btn_detailsActnBarBtn"
-        app:showAsAction="always"/>
-
 </menu>
