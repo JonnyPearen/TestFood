@@ -45,7 +45,7 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        //gets ingredients picked from Ingredients search page via intent
+        //gets ingredients picked from Ingredients search page via getlistt
         chosen_Ingredients = getIntent().getStringArrayListExtra("ingredients_array_list");
 
         //runs the search query
@@ -59,7 +59,7 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
         //Toast.makeText(this, (String)resultRecipes.get(position), Toast.LENGTH_SHORT).show();
         Intent goToDetails = new Intent();
         goToDetails.setClass(this, recipeDetails.class);
-        goToDetails.putExtra("RecipeName", (String) resultRecipes.get(position));
+        goToDetails.putExtra("recipeName", (String) resultRecipes.get(position));
         startActivity(goToDetails);
     }
 

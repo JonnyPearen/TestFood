@@ -8,31 +8,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.AsyncResponse;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import com.mycompany.testfood.MongoStuff.RequestTask;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class IngredientsSearch extends ActionBarActivity implements AsyncResponse {
+public class IngredientsSearch extends ActionBarActivity implements AsyncResponse, AdapterView.OnItemClickListener {
     static final String MY_FLURRY_APIKEY = "F7MTPVYXJMH6DCHMN9S3";
-
     AutoCompleteTextView mEdit;
 
     //arraylist that stores chosen ingredients
     private ArrayList ingredients_array_list = new ArrayList();
 
-    // public String[] ingredients = new String[3];
     public ArrayList<String> ingredients = new ArrayList();
     RequestTask r1 = new RequestTask();
 
@@ -48,9 +43,6 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
 
         mEdit = (AutoCompleteTextView) findViewById(R.id.autocomplete_ingredient);
 
-
-        //String[] ingredients = getResources().getStringArray(R.array.ingredients_array);
-
         //Get the available ingredients from mongoDB
         r1.execute("https://api.mongolab.com/api/1/databases/testfooddb/collections/ingredientstest?apiKey=a5Eqs4CeKR0S2cTdOULWMjoxG1kiyoBe");
         r1.delegate = this;
@@ -58,6 +50,16 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredients);
         mEdit.setAdapter(adapter);
+        ListView lv = (ListView) findViewById(R.id.ingredientsListView);
+        lv.setOnItemClickListener(this);
+    }
+
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        ingredients_array_list.get(position);
+        //Toast.makeText(this, (String)ingredients_array_list.get(position), Toast.LENGTH_SHORT).show();
+
+        ingredients_array_list.remove(position);
+        populateIngredientsList(ingredients_array_list);
     }
 
     //parse the JSON ingredients from MongoDB into the ingredients array
@@ -140,7 +142,6 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
         String inputText = mEdit.getText().toString();
         if (!inputText.equals("")) {
-            Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
             ingredients_array_list.add(inputText);
             populateIngredientsList(ingredients_array_list);
             mEdit.setText("");
