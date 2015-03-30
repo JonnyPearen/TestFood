@@ -15,6 +15,7 @@ import com.mycompany.testfood.MongoStuff.AsyncResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -118,28 +119,43 @@ public class recipeDetails extends Activity implements AsyncResponse{
             //loops through all the recipes returned.
             JSONObject e = json.getJSONObject(0);
             String name = "";
-            String ingredients = "";
-            String instructions = "";
+            JSONArray json_ingredients;
+            JSONArray json_instructions;
             String description = "";
             name = e.getString("name");
-            ingredients = e.getString("ingredients");
-            JSONArray butt = new JSONArray(ingredients);
             description = e.getString("description");
             recipe_steps.add(name);
-            recipe_steps.add(ingredients);
-            recipe_steps.add(instructions);
             recipe_steps.add(description);
-            populateIngredientsList(recipe_steps);
-            for (int i = 0; i < butt.length(); i++) {
-                JSONObject f = butt.getJSONObject(i);
-                String anIng = f.toString();
-                Toast.makeText(this, anIng, Toast.LENGTH_LONG).show();
-                //populateIngredientsList(f.toString());
+            recipe_steps.add("Ingredients:");
+
+/*
+            JSONObject ing = (JSONObject) new JSONTokener(ingredients).nextValue();
+            String query = ing.getString("query");
+            JSONArray fuck = ing.getJSONArray("fuck"); */
+
+            json_ingredients = e.getJSONArray("ingredients");
+            json_instructions = e.getJSONArray("instructions");
+
+            for (int i = 0; i < json_ingredients.length(); i++) {
+                String f = json_ingredients.getString(i);
+                recipe_steps.add(f);
+                Toast.makeText(this, f, Toast.LENGTH_SHORT).show();
+
             }
+
+            for (int i = 0; i < json_instructions.length(); i++) {
+                String pee = json_instructions.getString(i);
+                recipe_steps.add(pee);
+                Toast.makeText(this, pee, Toast.LENGTH_SHORT).show();
+
+            }
+
+            populateIngredientsList(recipe_steps);
 
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(this, "No Entries Found", Toast.LENGTH_SHORT).show();
         }
 
