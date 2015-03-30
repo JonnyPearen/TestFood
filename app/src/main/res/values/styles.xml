@@ -4,6 +4,7 @@
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize Here -->
         <item name="colorPrimary">#E64A19</item>
+        <item name="android:textColor">#212121</item>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">

@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="30sp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:textColor="#FFFFFF"
-        android:background="#FF5722"/>
+        android:background="#E64A19"/>
 
     <TextView
         android:id="@+id/textview_recipeDescription"
