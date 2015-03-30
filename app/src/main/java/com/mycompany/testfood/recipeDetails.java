@@ -143,6 +143,8 @@ public class recipeDetails extends Activity implements AsyncResponse{
 
             }
 
+            recipe_steps.add("Instructions:");
+
             for (int i = 0; i < json_instructions.length(); i++) {
                 String pee = json_instructions.getString(i);
                 recipe_steps.add(pee);
