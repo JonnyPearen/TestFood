@@ -1,34 +1,24 @@
 package com.mycompany.testfood;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.net.URLEncoder;
-
 import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.AsyncResponse;
-import com.mycompany.testfood.MongoStuff.Ingredient;
 import com.mycompany.testfood.MongoStuff.RequestTask;
-import com.mycompany.testfood.MongoStuff.SaveAsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.UnknownHostException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +61,7 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
         try {
             for (String ingredient : ingredientsList) {
                 searchQuery = searchQuery + "\"" + ingredient + "\"";
-                if (ingredient != ingredientsList.get(ingredientsList.size() - 1)) {
+                if (!ingredient.equals(ingredientsList.get(ingredientsList.size() - 1))) {
                     searchQuery = searchQuery + ",";
                 }
             }

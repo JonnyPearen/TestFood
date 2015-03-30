@@ -7,24 +7,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.RequestTask;
 import com.mycompany.testfood.MongoStuff.AsyncResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class recipeDetails extends Activity implements AsyncResponse{
 
     RequestTask getResultsTask = new RequestTask();
-    String recipeName;
+    TextView recipeTitle;
+    TextView recipeDescription;
+    TextView ingredientHeading;
+    TextView instructionHeading;
+
     ArrayList<String> recipe_steps;
+    ArrayList<String> ingredientsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +34,15 @@ public class recipeDetails extends Activity implements AsyncResponse{
         setContentView(R.layout.activity_recipe_details);
         FlurryAgent.logEvent("Details_Read");
 
+        ingredientsList = new ArrayList<>();
         recipe_steps = new ArrayList<>();
 
-        recipeName = "rice";
-        //String recipeName = getIntent().getStringExtra("recipeName");
+        ingredientHeading = (TextView) findViewById(R.id.textview_ingredientHeader);
+        instructionHeading = (TextView) findViewById(R.id.textview_instructionsHeader);
+        recipeTitle = (TextView) findViewById(R.id.textview_recipeTitle);
+        recipeDescription = (TextView) findViewById(R.id.textview_recipeDescription);
+
+        String recipeName = getIntent().getStringExtra("RecipeName");
         //runs the search query
         getResultsTask.execute(getRecipeURL(recipeName));
         getResultsTask.delegate = this;
@@ -86,7 +93,7 @@ public class recipeDetails extends Activity implements AsyncResponse{
     }
 
     private void populateIngredientsList(ArrayList<String> a) {
-        ListView lv = (ListView) findViewById(R.id.list);
+        ListView lv_ingredients = (ListView) findViewById(R.id.list_ingredients);
 
         // This is the array adapter, takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and the
@@ -95,7 +102,20 @@ public class recipeDetails extends Activity implements AsyncResponse{
                 this,
                 android.R.layout.simple_list_item_1,
                 a);
-        lv.setAdapter(arrayAdapter);
+        lv_ingredients.setAdapter(arrayAdapter);
+    }
+
+    private void populateInstructionsList(ArrayList<String> a) {
+        ListView lv_instructions = (ListView) findViewById(R.id.list_instructions);
+
+        // This is the array adapter, takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and the
+        // array as a third parameter.
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                a);
+        lv_instructions.setAdapter(arrayAdapter);
     }
 
 
@@ -124,37 +144,31 @@ public class recipeDetails extends Activity implements AsyncResponse{
             String description = "";
             name = e.getString("name");
             description = e.getString("description");
-            recipe_steps.add(name);
-            recipe_steps.add(description);
-            recipe_steps.add("Ingredients:");
+            String recipeTitleString = name;
+            String ingredientsHeaderString = "Ingredients";
+            String instructionsHeadingString = "Instructions";
 
-/*
-            JSONObject ing = (JSONObject) new JSONTokener(ingredients).nextValue();
-            String query = ing.getString("query");
-            JSONArray fuck = ing.getJSONArray("fuck"); */
+            recipeTitle.setText(recipeTitleString);
+            recipeDescription.setText(description);
+            ingredientHeading.setText(ingredientsHeaderString);
+            instructionHeading.setText(instructionsHeadingString);
 
             json_ingredients = e.getJSONArray("ingredients");
             json_instructions = e.getJSONArray("instructions");
 
             for (int i = 0; i < json_ingredients.length(); i++) {
                 String f = json_ingredients.getString(i);
-                recipe_steps.add(f);
-                Toast.makeText(this, f, Toast.LENGTH_SHORT).show();
+                ingredientsList.add(f);
 
             }
-
-            recipe_steps.add("Instructions:");
+            populateIngredientsList(ingredientsList);
 
             for (int i = 0; i < json_instructions.length(); i++) {
                 String pee = json_instructions.getString(i);
                 recipe_steps.add(pee);
-                Toast.makeText(this, pee, Toast.LENGTH_SHORT).show();
 
             }
-
-            populateIngredientsList(recipe_steps);
-
-
+            populateInstructionsList(recipe_steps);
 
         } catch (Exception e) {
             e.printStackTrace();
