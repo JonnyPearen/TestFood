@@ -28,7 +28,7 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
     //arraylist that stores chosen ingredients
     private ArrayList ingredients_array_list = new ArrayList();
 
-    public ArrayList<String> ingredients = new ArrayList();
+    public ArrayList<String> ingredients = new ArrayList<String>();
     RequestTask r1 = new RequestTask();
 
     @Override
@@ -95,7 +95,6 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
     public void onStart() {
         super.onStart();
         FlurryAgent.logEvent("Ingredients_Search_Read");
-
     }
 
     @Override

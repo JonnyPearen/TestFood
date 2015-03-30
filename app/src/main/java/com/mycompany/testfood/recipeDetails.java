@@ -42,7 +42,7 @@ public class recipeDetails extends Activity implements AsyncResponse{
         recipeTitle = (TextView) findViewById(R.id.textview_recipeTitle);
         recipeDescription = (TextView) findViewById(R.id.textview_recipeDescription);
 
-        String recipeName = getIntent().getStringExtra("RecipeName");
+        String recipeName = getIntent().getStringExtra("recipeName");
         //runs the search query
         getResultsTask.execute(getRecipeURL(recipeName));
         getResultsTask.delegate = this;
