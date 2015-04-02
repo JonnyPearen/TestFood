@@ -30,6 +30,13 @@
         android:layout_marginRight="10dp"/>
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Favourites"
+        android:onClick="addtodb"
+        android:id="@+id/button" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

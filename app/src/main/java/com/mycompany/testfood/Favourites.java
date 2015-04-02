@@ -16,8 +16,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import com.flurry.android.FlurryAgent;
-
 public class Favourites extends ActionBarActivity {
 
     @Override
@@ -28,19 +26,12 @@ public class Favourites extends ActionBarActivity {
         makeDB();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FlurryAgent.logEvent("Favourites_Read");
-
-    }
-
     public class FeedReaderDbHelper extends SQLiteOpenHelper {
         // If you change the database schema, you must increment the database version.
         public static final int DATABASE_VERSION = 1;
 
         public FeedReaderDbHelper(Context context) {
-            super(context, "DB1", null, DATABASE_VERSION);
+            super(context, "DB3", null, DATABASE_VERSION);
         }
 
         public void onCreate(SQLiteDatabase db) {
@@ -67,17 +58,13 @@ public class Favourites extends ActionBarActivity {
         ContentValues values = new ContentValues();
 
 
-        testDB = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
+        testDB = this.openOrCreateDatabase("database4", MODE_PRIVATE, null);
 
-            /* Create a Table in the Database, if it doesn't already exist */
+   /* Create a Table in the Database, if it doesn't already exist */
+
         testDB.execSQL("CREATE TABLE IF NOT EXISTS "
                 + "TEST"
                 + " (_id VARCHAR, Food TEXT);");
-
-        values.put("_id", 1);
-        values.put("Food", "Pizza");
-
-        testDB.insert("TEST", null, values);
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
@@ -106,42 +93,4 @@ public class Favourites extends ActionBarActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Intent actionBarBtnIntent;
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_addFavourite || id == R.id.action_removeFavourite) {
-            return true;
-        }
-
-        switch (item.getItemId()) {
-            case R.id.btn_searchPage:
-                actionBarBtnIntent = new Intent(this, IngredientsSearch.class);
-                startActivity(actionBarBtnIntent);
-                return true;
-            case R.id.btn_detailsPage:
-                actionBarBtnIntent = new Intent(this, recipeDetails.class);
-                startActivity(actionBarBtnIntent);
-                return true;
-            case R.id.btn_favouritesPage:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public void goHome(View view) {
-
-        Intent goHome = new Intent(this, IngredientsSearch.class);
-
-        startActivity(goHome);
-
-        Toast.makeText(this, "You Chose Home", Toast.LENGTH_SHORT).show();
-
-    }
 }

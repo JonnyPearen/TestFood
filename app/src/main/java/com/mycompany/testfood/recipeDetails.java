@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,13 +18,20 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class recipeDetails extends Activity implements AsyncResponse{
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
+
+public class recipeDetails extends Activity implements AsyncResponse{
+    SQLiteDatabase testDB;
     RequestTask getResultsTask = new RequestTask();
     TextView recipeTitle;
     TextView recipeDescription;
     TextView ingredientHeading;
     TextView instructionHeading;
+    String recipeName;
 
     ArrayList<String> recipe_steps;
     ArrayList<String> ingredientsList;
@@ -42,12 +50,73 @@ public class recipeDetails extends Activity implements AsyncResponse{
         recipeTitle = (TextView) findViewById(R.id.textview_recipeTitle);
         recipeDescription = (TextView) findViewById(R.id.textview_recipeDescription);
 
-        String recipeName = getIntent().getStringExtra("recipeName");
+        recipeName = getIntent().getStringExtra("recipeName");
         //runs the search query
         getResultsTask.execute(getRecipeURL(recipeName));
         getResultsTask.delegate = this;
+        makeDB();
 
     }
+
+
+
+
+    public class FeedReaderDbHelper extends SQLiteOpenHelper {
+
+        // If you change the database schema, you must increment the database version.
+        public static final int DATABASE_VERSION = 1;
+
+        public FeedReaderDbHelper(Context context) {
+            super(context, "DB3", null, DATABASE_VERSION);
+        }
+
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE NEW (_id INTEGER PRIMARY KEY, Food TEXT);");
+        }
+
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            // This database is only a cache for online data, so its upgrade policy is
+            // to simply to discard the data and start over
+            db.execSQL("DROP TABLE IF EXISTS TEST");
+            onCreate(db);
+        }
+
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            onUpgrade(db, oldVersion, newVersion);
+        }
+    }
+
+    public void makeDB() throws NullPointerException {
+        FeedReaderDbHelper helper = new FeedReaderDbHelper(getApplicationContext());
+
+        //SQLiteDatabase testDB = helper.getWritableDatabase();
+
+        testDB = this.openOrCreateDatabase("database4", MODE_PRIVATE, null);
+
+   /* Create a Table in the Database, if it doesn't already exist */
+
+        testDB.execSQL("CREATE TABLE IF NOT EXISTS "
+                + "TEST"
+                + " (_id VARCHAR, Food TEXT);");
+
+    }
+
+    public void addtodb(View v){
+        ContentValues values = new ContentValues();
+        values.put("_id", 1);
+        values.put("Food", recipeName);
+
+        testDB.insert("TEST", null, values);
+
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,4 +245,5 @@ public class recipeDetails extends Activity implements AsyncResponse{
         }
 
     }
+
 }
