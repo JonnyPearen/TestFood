@@ -34,8 +34,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Favourites"
-        android:onClick="addtodb"
+        android:onClick="addToDb"
         android:id="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="unfavourite"
+        android:id="@+id/button3"
+        android:onClick="removeFromDb"
+        android:layout_gravity="right" />
 
     <LinearLayout
         android:layout_width="fill_parent"

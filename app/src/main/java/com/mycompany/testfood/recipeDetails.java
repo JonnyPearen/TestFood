@@ -58,9 +58,6 @@ public class recipeDetails extends Activity implements AsyncResponse{
 
     }
 
-
-
-
     public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
         // If you change the database schema, you must increment the database version.
@@ -101,12 +98,18 @@ public class recipeDetails extends Activity implements AsyncResponse{
 
     }
 
-    public void addtodb(View v){
+    public void addToDb(View v){
         ContentValues values = new ContentValues();
         values.put("_id", 1);
         values.put("Food", recipeName);
 
         testDB.insert("TEST", null, values);
+
+    }
+
+    public void removeFromDb(View v){
+        testDB.delete("TEST", "Food='" + recipeName + "'", null);
+
 
     }
 
