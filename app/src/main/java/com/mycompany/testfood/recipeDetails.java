@@ -3,6 +3,7 @@ package com.mycompany.testfood;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class recipeDetails extends Activity implements AsyncResponse{
+public class recipeDetails extends ActionBarActivity implements AsyncResponse{
     SQLiteDatabase testDB;
     RequestTask getResultsTask = new RequestTask();
     TextView recipeTitle;
@@ -110,14 +111,7 @@ public class recipeDetails extends Activity implements AsyncResponse{
     public void removeFromDb(View v){
         testDB.delete("TEST", "Food='" + recipeName + "'", null);
 
-
     }
-
-
-
-
-
-
 
 
 
@@ -128,12 +122,6 @@ public class recipeDetails extends Activity implements AsyncResponse{
         return true;
     }
 
-    /*
-    @Override
-    protected void onListItemClick(ListView lv, View v, int position, long id) {
-        /String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

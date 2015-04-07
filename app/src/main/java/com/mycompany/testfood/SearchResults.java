@@ -3,6 +3,7 @@ package com.mycompany.testfood;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchResults extends Activity implements AsyncResponse, AdapterView.OnItemClickListener {
+public class SearchResults extends ActionBarActivity implements AsyncResponse, AdapterView.OnItemClickListener {
     //Stores the chosen ingredients. Passed in form the Ingredient search page
     private ArrayList<String> chosen_Ingredients;
     //holds the names of the recipes retrieved
@@ -44,7 +45,7 @@ public class SearchResults extends Activity implements AsyncResponse, AdapterVie
         ListView listview = (ListView) findViewById(R.id.resultsListView);
         listview.setOnItemClickListener(this);
     }
-
+    @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         //Toast.makeText(this, (String)resultRecipes.get(position), Toast.LENGTH_SHORT).show();
         Intent goToDetails = new Intent();
