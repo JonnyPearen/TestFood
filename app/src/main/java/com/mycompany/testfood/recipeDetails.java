@@ -99,21 +99,21 @@ public class recipeDetails extends ActionBarActivity implements AsyncResponse{
 
     }
 
-    public void addToDb(View v){
+    public void addToDb(){
         ContentValues values = new ContentValues();
         values.put("_id", 1);
         values.put("Food", recipeName);
 
         testDB.insert("TEST", null, values);
 
+        Toast.makeText(this, recipeName + " added to favourites!", Toast.LENGTH_LONG).show();
+
     }
 
-    public void removeFromDb(View v){
+    public void removeFromDb(){
         testDB.delete("TEST", "Food='" + recipeName + "'", null);
-
+        Toast.makeText(this, recipeName + " removed from favourites!", Toast.LENGTH_LONG).show();
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,6 +146,12 @@ public class recipeDetails extends ActionBarActivity implements AsyncResponse{
             case R.id.btn_favouritesPage:
                 actionBarBtnIntent = new Intent(this, Favourites.class);
                 startActivity(actionBarBtnIntent);
+                return true;
+            case R.id.action_addFavourite:
+                addToDb();
+                return true;
+            case R.id.action_removeFavourite:
+                removeFromDb();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

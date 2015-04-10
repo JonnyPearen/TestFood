@@ -5,7 +5,6 @@
     android:orientation="vertical">
 
 
-
     <TextView
         android:id="@+id/textview_recipeTitle"
         android:layout_width="fill_parent"
@@ -14,8 +13,7 @@
         android:textSize="30sp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textColor="#FFFFFF"
-        android:background="#E64A19"/>
+        android:textColor="#E64A19"/>
 
     <TextView
         android:id="@+id/textview_recipeDescription"
@@ -28,22 +26,6 @@
         android:paddingBottom="2dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to Favourites"
-        android:onClick="addToDb"
-        android:id="@+id/button" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="unfavourite"
-        android:id="@+id/button3"
-        android:onClick="removeFromDb"
-        android:layout_gravity="right" />
 
     <LinearLayout
         android:layout_width="fill_parent"
