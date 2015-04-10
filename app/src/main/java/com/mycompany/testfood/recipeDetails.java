@@ -1,28 +1,28 @@
 package com.mycompany.testfood;
 
-import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.flurry.android.FlurryAgent;
-import com.mycompany.testfood.MongoStuff.RequestTask;
 import com.mycompany.testfood.MongoStuff.AsyncResponse;
+import com.mycompany.testfood.MongoStuff.RequestTask;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class recipeDetails extends ActionBarActivity implements AsyncResponse{
@@ -46,6 +46,7 @@ public class recipeDetails extends ActionBarActivity implements AsyncResponse{
         ingredientsList = new ArrayList<>();
         recipe_steps = new ArrayList<>();
 
+        //instantiates textviews, associates them with textviews in xml
         ingredientHeading = (TextView) findViewById(R.id.textview_ingredientHeader);
         instructionHeading = (TextView) findViewById(R.id.textview_instructionsHeader);
         recipeTitle = (TextView) findViewById(R.id.textview_recipeTitle);
@@ -201,40 +202,50 @@ public class recipeDetails extends ActionBarActivity implements AsyncResponse{
 
     public void processFinish(String output) {
         try {
-            JSONArray json = new JSONArray(output);
-            //loops through all the recipes returned.
-            JSONObject e = json.getJSONObject(0);
-            String name = "";
-            JSONArray json_ingredients;
-            JSONArray json_instructions;
-            String description = "";
-            name = e.getString("name");
-            description = e.getString("description");
-            String recipeTitleString = name;
-            String ingredientsHeaderString = "Ingredients";
-            String instructionsHeadingString = "Instructions";
+                JSONArray json = new JSONArray(output);
+                //loops through all the recipes returned.
+                JSONObject e = json.getJSONObject(0);
+                String name = "";
+                JSONArray json_ingredients;
+                JSONArray json_instructions;
+                String description = "";
+                //gets name field in db entry
+                name = e.getString("name");
+                //gets description field
+                description = e.getString("description");
+                String recipeTitleString = name;
+                //creates section headings
+                String ingredientsHeaderString = "Ingredients";
+                String instructionsHeadingString = "Instructions";
 
-            recipeTitle.setText(recipeTitleString);
-            recipeDescription.setText(description);
-            ingredientHeading.setText(ingredientsHeaderString);
-            instructionHeading.setText(instructionsHeadingString);
+                //populates textviews in layout
+                recipeTitle.setText(recipeTitleString);
+                recipeDescription.setText(description);
+                ingredientHeading.setText(ingredientsHeaderString);
+                instructionHeading.setText(instructionsHeadingString);
 
-            json_ingredients = e.getJSONArray("ingredients");
-            json_instructions = e.getJSONArray("instructions");
+                //gets ingredients and instructions from db as arrays
+                json_ingredients = e.getJSONArray("ingredients");
+                json_instructions = e.getJSONArray("instructions");
 
-            for (int i = 0; i < json_ingredients.length(); i++) {
-                String f = json_ingredients.getString(i);
-                ingredientsList.add(f);
+                //adds each item in array to ingredientsList ArrayList
+                for (int i = 0; i < json_ingredients.length(); i++) {
+                    String ingr = json_ingredients.getString(i);
+                    ingredientsList.add(ingr);
 
-            }
-            populateIngredientsList(ingredientsList);
+                }
 
-            for (int i = 0; i < json_instructions.length(); i++) {
-                String pee = json_instructions.getString(i);
-                recipe_steps.add(pee);
+                //adds ingredients from ArrayList into a ListView using ArrayAdapter
+                populateIngredientsList(ingredientsList);
 
-            }
-            populateInstructionsList(recipe_steps);
+                for (int i = 0; i < json_instructions.length(); i++) {
+                    String instr = json_instructions.getString(i);
+                    recipe_steps.add(instr);
+
+                }
+
+                //addes instructions from ArrayList into a ListView using ArrayAdapter
+                populateInstructionsList(recipe_steps);
 
         } catch (Exception e) {
             e.printStackTrace();
