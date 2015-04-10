@@ -81,9 +81,7 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
     private void populateIngredientsList(List<String> a) {
         ListView lv = (ListView) findViewById(R.id.ingredientsListView);
 
-        // This is the array adapter, takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and the
-        // array as a third parameter.
+        /*The array adapter for selected ingredients*/
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -104,11 +102,9 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         return true;
     }
 
+    /*handles action bar clicks*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         Intent actionBarBtnIntent;
 
@@ -130,12 +126,14 @@ public class IngredientsSearch extends ActionBarActivity implements AsyncRespons
         }
     }
 
+    /*redirects to results page, and passes the search criteria to it*/
     public void searchRecipes(View view) {
         Intent searchRecipes = new Intent(this, SearchResults.class);
         searchRecipes.putStringArrayListExtra("ingredients_array_list", ingredients_array_list);
         startActivity(searchRecipes);
     }
 
+    /*adds the currently selected ingredient to the selected ingredients array*/
     public void addIngredient(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);

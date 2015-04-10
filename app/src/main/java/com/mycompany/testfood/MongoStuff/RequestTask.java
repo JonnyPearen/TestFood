@@ -1,19 +1,18 @@
 package com.mycompany.testfood.MongoStuff;
 
 import android.os.AsyncTask;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/*Gets results from the mongodb*/
 public class RequestTask extends AsyncTask<String, String, String> {
+    //makes instance of AsyncResponse
     public AsyncResponse delegate = null;
 
     @Override
@@ -34,9 +33,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
                 response.getEntity().getContent().close();
                 throw new IOException(statusLine.getReasonPhrase());
             }
-        } catch (ClientProtocolException e) {
-            //TODO Handle problems..
-        } catch (IOException e) {
+        } catch (Exception e) {
             //TODO Handle problems..
         }
         return responseString;
@@ -45,6 +42,8 @@ public class RequestTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        //puts the response into the PorcessFinish method of the Activity that called it
+        //(has to implement AsyncResponse
         delegate.processFinish(result);
     }
 }

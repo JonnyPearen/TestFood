@@ -11,12 +11,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-public class Favourites extends ActionBarActivity {
+public class Favourites extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,20 @@ public class Favourites extends ActionBarActivity {
         setContentView(R.layout.activity_favourites);
 
         makeDB();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        Toast.makeText(this, position, Toast.LENGTH_SHORT).show();
+        ListView list = (ListView) findViewById(R.id.favlistView);
+        String clickedItems=list.getItemAtPosition(position).toString();
+        Toast.makeText(this, clickedItems, Toast.LENGTH_SHORT).show();
+        /*
+        Intent goToDetails = new Intent();
+        goToDetails.setClass(this, recipeDetails.class);
+        goToDetails.putExtra("recipeName", (String) resultRecipes.get(position));
+        startActivity(goToDetails);
+        */
     }
 
     public class FeedReaderDbHelper extends SQLiteOpenHelper {
@@ -66,16 +81,16 @@ public class Favourites extends ActionBarActivity {
                 + "TEST"
                 + " (_id VARCHAR, Food TEXT);");
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.favlistView);
 
 
         String columns[] = {
-                "_id",
+
                 "Food"
         };
 
         int to[] = new int[]{
-                android.R.id.text1,
+
                 android.R.id.text2
         };
 
@@ -89,7 +104,7 @@ public class Favourites extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_favourites, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

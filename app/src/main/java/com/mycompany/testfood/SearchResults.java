@@ -1,6 +1,5 @@
 package com.mycompany.testfood;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,19 +10,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.flurry.android.FlurryAgent;
 import com.mycompany.testfood.MongoStuff.AsyncResponse;
 import com.mycompany.testfood.MongoStuff.RequestTask;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*calls AsyncTask to search for recipes in the mongodb based on the search criteria passed in and displays the results.*/
 public class SearchResults extends ActionBarActivity implements AsyncResponse, AdapterView.OnItemClickListener {
     //Stores the chosen ingredients. Passed in form the Ingredient search page
     private ArrayList<String> chosen_Ingredients;
@@ -46,6 +42,7 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse, A
         listview.setOnItemClickListener(this);
     }
     @Override
+    /* listens to the reicipe optionss list view, and redirects to the appropriate recipe details page*/
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         //Toast.makeText(this, (String)resultRecipes.get(position), Toast.LENGTH_SHORT).show();
         Intent goToDetails = new Intent();
@@ -91,7 +88,7 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse, A
 
         populateIngredientsList(resultRecipes);
     }
-
+    /*inflates the menu bar*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -99,6 +96,7 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse, A
         return true;
     }
 
+    /*listens to menubar button clicks*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -106,11 +104,6 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse, A
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         Intent actionBarBtnIntent;
-
-        /*noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
 
         switch (item.getItemId()) {
             case R.id.btn_searchPage:
@@ -134,15 +127,12 @@ public class SearchResults extends ActionBarActivity implements AsyncResponse, A
     public void onStart() {
         super.onStart();
         FlurryAgent.logEvent("Database_pls");
-
     }
 
     private void populateIngredientsList(List<String> a) {
         ListView lv = (ListView) findViewById(R.id.resultsListView);
 
-        // This is the array adapter, takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and the
-        // array as a third parameter.
+        /*array adaptor for the list of recipes*/
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,

@@ -1,14 +1,15 @@
 package com.mycompany.testfood.MongoStuff;
 
 import android.os.AsyncTask;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-/*Async task for saving stuff in the mongodb database*/
+/*Async task for saving stuff in the mongodb database
+* not used in the current version of the app. To be used to allow users/asmins to
+* add recipies to the database in future versions*/
 public class SaveAsyncTask extends AsyncTask<Ingredient, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Ingredient... arg0) {
