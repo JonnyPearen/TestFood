@@ -1,15 +1,10 @@
 package com.mycompany.testfood;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
@@ -23,7 +18,6 @@ public class Favourites extends ActionBarActivity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites);
-
         makeDB();
     }
 
@@ -33,6 +27,7 @@ public class Favourites extends ActionBarActivity implements AdapterView.OnItemC
         ListView list = (ListView) findViewById(R.id.favlistView);
         String clickedItems=list.getItemAtPosition(position).toString();
         Toast.makeText(this, clickedItems, Toast.LENGTH_SHORT).show();
+
         /*
         Intent goToDetails = new Intent();
         goToDetails.setClass(this, recipeDetails.class);
@@ -41,63 +36,36 @@ public class Favourites extends ActionBarActivity implements AdapterView.OnItemC
         */
     }
 
-    public class FeedReaderDbHelper extends SQLiteOpenHelper {
-        // If you change the database schema, you must increment the database version.
-        public static final int DATABASE_VERSION = 1;
-
-        public FeedReaderDbHelper(Context context) {
-            super(context, "DB3", null, DATABASE_VERSION);
-        }
-
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE NEW (_id INTEGER PRIMARY KEY, Food TEXT);");
-        }
-
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // This database is only a cache for online data, so its upgrade policy is
-            // to simply to discard the data and start over
-            db.execSQL("DROP TABLE IF EXISTS TEST");
-            onCreate(db);
-        }
-
-        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            onUpgrade(db, oldVersion, newVersion);
-        }
-    }
-
     public void makeDB() throws NullPointerException {
-        FeedReaderDbHelper helper = new FeedReaderDbHelper(getApplicationContext());
+        SQLiteDatabase testDB = this.openOrCreateDatabase("database4", MODE_PRIVATE, null);
 
-        SQLiteDatabase testDB = helper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-
-        testDB = this.openOrCreateDatabase("database4", MODE_PRIVATE, null);
-
-   /* Create a Table in the Database, if it doesn't already exist */
-
+        //Create a table in the database, if it doesn't already exist
         testDB.execSQL("CREATE TABLE IF NOT EXISTS "
                 + "TEST"
                 + " (_id VARCHAR, Food TEXT);");
 
+        //Get the listView to put the favourites data into
         ListView listView = (ListView) findViewById(R.id.favlistView);
 
-
+        //The column(s) from the database to display
         String columns[] = {
-
                 "Food"
         };
 
+        //The corresponding part of template to fill with the data
         int to[] = new int[]{
-
-                android.R.id.text2
+                android.R.id.text1
         };
 
+        //The cursor that queries the database
         Cursor testCursor = testDB.rawQuery("SELECT _id, Food FROM TEST", null);
+
+        //The cursor adapter that allows the cursor's results to be display
         SimpleCursorAdapter testAdapter = new SimpleCursorAdapter(getApplicationContext(),
-                android.R.layout.simple_list_item_2, testCursor, columns, to,
+                android.R.layout.simple_list_item_1, testCursor, columns, to,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+        //Setting the listView to use the cursor adapter
         listView.setAdapter(testAdapter);
     }
 
